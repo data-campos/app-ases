@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light" (click)="voltar()"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Comunicados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <mat-accordion multi="false" *ngFor="let comunicado of comunicados">
+          <mat-expansion-panel (opened)="lerComunicado(comunicado.nr_sequencia)">
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <ion-label color="tertiary"> {{ comunicado.ds_titulo }} </ion-label>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ion-label color="primary">
+              {{ comunicado.ds_texto }}
+            </ion-label>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

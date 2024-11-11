@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title color="light">Carência / CPT</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <mat-accordion multi="false">
+          <mat-expansion-panel expanded="true">
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <ion-label color="tertiary">Carências</ion-label>
+              </mat-panel-title>
+
+              <mat-panel-description>
+                {{ carencias.value.length }} carência(s)
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <ion-item *ngFor="let carencia of carencias | async; let i = index">
+              <ion-label color="dark">
+                <h3> {{ carencia.ds_carencia }} </h3>
+                <h3 > Fim da vigência: {{ carencia.dt_validade }}</h3>
+              </ion-label>
+            </ion-item>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <mat-accordion>
+          <mat-expansion-panel expanded="true">
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <ion-label color="tertiary">CPT</ion-label>
+              </mat-panel-title>
+
+              <mat-panel-description>
+                {{ cpts.value.length }} cpt(s)
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <ion-item *ngFor="let cpt of cpts | async; let i = index">
+              <ion-label color="dark">
+                <h3> {{ cpt.ds_cpt }} </h3>
+                <h3> Fim da vigência: {{ cpt.dt_validade }} </h3>
+              </ion-label>
+            </ion-item>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

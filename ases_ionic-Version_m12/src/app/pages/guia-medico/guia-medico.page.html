@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-back-button *ngIf="!isModal" slot="start" color="light"></ion-back-button>
+    <ion-title color="light">Guia médico</ion-title>
+    <ion-buttons *ngIf="isModal" slot="end">
+      <ion-button color="light" (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+
+  <ion-grid>
+
+    <ion-row >
+      <ion-col class = "padding-y-low" >
+        <ion-item class = "padding-y-low padding-low">
+          <ion-label position="floating" color="primary">Tipo de plano</ion-label>
+          <ion-select [formControl]="nr_seq_tipo_guia">
+            <ion-select-option value=""> Todos </ion-select-option>
+            <ion-select-option value="2"> Ases Convencional </ion-select-option>
+            <ion-select-option value="1"> Ases Junior </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col class = "padding-y-low" >
+        <ion-item class="center-row padding-y-low padding-low">
+          <ion-label position="floating" style="min-width: 70%;" color="primary">Especialidades</ion-label>
+          <ion-icon 
+            (click)="this.recordVoice()" 
+            [class.mic-z-index]="true" 
+            [class.animacao-gravando]="this.isGravando.value" 
+            name="mic" 
+            slot="end" 
+            size="medium"
+          ></ion-icon>
+          <ion-select style="min-width: 70%;" [formControl]="especialidade">
+            <ion-select-option [value]="0"> Todos </ion-select-option>
+            <ion-select-option *ngFor="let especialidade of especialidades" [value]="especialidade.cd_especialidade">
+              {{ especialidade.nm_especialidade }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class = "padding-y-low">
+        <ion-item lines="none" class = "padding-y-low padding-low">
+          <ion-input type="text" placeholder="Informe o nome do prestador" [formControl]="nm_prestador"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        <ion-button [disabled]="this.isGravando.value || !this.latAtual || !this.longAtual" expand="block" (click)="filtrarGuia()">
+          <ion-label *ngIf="!autenticando"> Buscar </ion-label>
+          <ion-icon name="location-outline" slot="start" *ngIf="!autenticando"></ion-icon>
+          <ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="cordenadas.length === 0">
+      <ion-col class="ion-text-center">
+        <ion-label color="primary">
+          <small *ngIf="searchMade">
+            Clique (ou pressione) o Buscar depois de selecionar seu Tipo de Plano
+          </small>
+          <small *ngIf="!searchMade">
+            Não foram encontrados prestadores.
+          </small>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <div *ngIf="cordenadas.length > 0">
+    <ion-card *ngFor = "let local of cordenadas">
+      <ion-card-header>
+        <ion-card-title class = "titulo-local">{{ local.nm_prestador }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <h6 class = "subtitulo">Endereço</h6>
+        <p class = "desc">{{ local.ds_local }}</p>
+
+        <h6 class = "subtitulo">Distância</h6>
+        <p class = "desc">{{ local.qt_distancia_km }}km</p>
+
+        <h6 *ngIf="this.getCoberturaPlano(local.nr_seq_tipo_guia).length > 0" class = "subtitulo">Planos</h6>
+        <p *ngFor="let item of this.getCoberturaPlano(local.nr_seq_tipo_guia)" class = "desc">{{ item }}</p>
+
+        <ion-row> 
+          <ion-col style = "margin-left: 0">
+            <ion-item *ngIf = "local.ds_contato.length > 5" class="ion-no-padding" lines = "none" (click)="ligar(local.ds_contato)">
+              <div  class = "button-box">
+                <ion-icon color  = "white" name="call" slot="start"></ion-icon>
+              </div>
+              <ion-label class = "button-text">{{ local.ds_contato }}</ion-label>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-item lines = "none" (click)="abrirMapa(local)">
+              <div class = "button-box">  
+                <ion-icon color = "white" name="location" slot="start"></ion-icon>
+              </div>              
+              <ion-label class = "button-text">Ver mapa</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Consulta Solicitação</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <mat-accordion multi="false">
+          <mat-expansion-panel *ngFor="let item of listaItens | async; let i = index" expanded="false">
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <ion-label color="tertiary">{{ item.ds }}</ion-label>
+              </mat-panel-title>
+
+              <mat-panel-description>
+                {{ item.dsStatus }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <ion-item *ngFor="let it of listaItens.value[i].listaItens">
+              <ion-label color="dark">
+                <h3> {{ it.nmAtributo }} - {{ it.dsStatus }} </h3>
+                <h3> Antes: {{ it.vlAntes }} </h3>
+                <h3> Depois: {{ it.vlDepois || '' }} </h3>
+              </ion-label>
+            </ion-item>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

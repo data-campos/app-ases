@@ -1,0 +1,112 @@
+<ion-content color="medium" class="ion-padding">
+
+  <ion-grid>
+
+    <ion-row class="custom-margin-top ion-padding-bottom ion-padding-top ion-justify-content-center">
+      <img src="/assets/ASES.png">
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button [disabled]="abrindoGuiaMedico" color="primary" expand="block" (click)="abrirGuiaMedico()">          
+          <ion-label>Guia médico</ion-label>
+          <ion-spinner name="lines" *ngIf="abrindoGuiaMedico"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+    <div *ngIf="users.length > 0">
+      <ion-card>
+        <ion-card-content>
+          <ion-row class="ion-padding-top">
+            <ion-col>
+              <mat-form-field style="background-color: white;">
+                <mat-select (closed)="close()" placeholder="Credenciais salvas">
+                  <mat-option *ngFor="let user of users" [value]="user">
+                    <ion-list>
+                      <ion-item-sliding lines="none">
+                        <ion-item lines="none" (click)="login(user)">
+                          <div class="ion-text-center"> {{ user.nomeUsuario }} </div>
+                        </ion-item>
+                        <ion-item-options side="end">
+                          <ion-item-option color="danger" (click)="removerUserRemember(user)">
+                            Remover credenciais
+                          </ion-item-option>
+                        </ion-item-options>
+                      </ion-item-sliding>
+                    </ion-list>
+                  </mat-option>
+                  <ion-row>
+                    <ion-col class="ion-text-center" color="primary">
+                      <small>Arraste para esquerda para excluir a credencial salva</small>
+                    </ion-col>
+                  </ion-row>
+                </mat-select>
+              </mat-form-field>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-row>
+        <ion-col class="ion-text-center" color="tertiary">
+          <small>
+            <b> ou acesse com outro usuário </b>
+          </small>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <form [formGroup]="form">
+      <ion-card color="primary">
+        <ion-card-content>
+          <ion-row class="ion-padding-top">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-icon slot="end" name="person" size="small"></ion-icon>
+                <ion-input type="text" placeholder="Informe o nº da carteirinha" formControlName="ds_login"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-top">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-icon (click) = "exibirSenha = !exibirSenha" slot="end" [name]="exibirSenha ? 'eye-off' : 'eye'" size="small"></ion-icon>
+                <ion-input  clearOnEdit = "false" [type]="exibirSenha ? 'text' : 'password'" placeholder="Informe a senha" formControlName="ds_senha"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-item lines="none" color="primary">
+                <ion-label class = "retiraMargemVertical">Salvar credenciais</ion-label>
+                <ion-checkbox class = "retiraMargemVertical" slot="end" color="primary-fg" formControlName="fl_salvar"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-row>
+        <ion-col class="ion-padding-bottom">
+          <ion-label (click)="alterarSenha()" color="primary"> Esqueceu sua senha? </ion-label>
+        </ion-col>
+
+        <ion-col class="ion-padding-bottom">
+          <ion-label (click)="modalCadastrarConta()" class="alignme" color="primary"> Não sou cadastrado</ion-label>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <ion-row>
+      <ion-col>
+        <ion-button [disabled]="form.invalid || autenticando" color="primary" expand="block" (click)="login()">          
+          <ion-label>Acessar</ion-label>
+          <ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

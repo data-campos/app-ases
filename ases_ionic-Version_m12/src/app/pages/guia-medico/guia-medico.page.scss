@@ -1,0 +1,104 @@
+@keyframes recording-animate {
+    0% {
+        border: 3px solid transparent;
+        border-radius: 50%;
+    }
+    
+    100% {
+        border: 3px solid red;
+        border-radius: 50%;
+    }
+}
+
+.labels {
+    color: red;
+    background-color: white;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    width: 40px;     
+    border: 2px solid black;
+    white-space: nowrap;
+}
+
+.titulo-local{
+    color: var(--ion-color-primary);
+    
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.subtitulo{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);    
+}
+
+.desc{
+    font-size: 13px;
+    font-weight: 200;
+    color: #303030;
+}
+
+.button-box{
+    background-color: var(--ion-color-primary);
+    border-radius: 50%;
+
+    padding: 7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.button-text{
+    margin-left: 4px!important;
+    font-size: 12px;
+}
+
+.padding-low{
+    padding: 6px!important;
+}
+
+.padding-y-low{
+    padding-top: 2px!important;
+    padding-bottom: 2px!important;
+}
+
+.icon-nome-prestador {
+    border: 3px solid red;
+    border-radius: 50%;
+}
+
+#ouvindo-container{
+    margin: 10px;
+    background-color: red;
+    border-radius: 10px;
+    
+    p{
+        color: black;
+    }
+}
+
+.animacao-gravando{
+    animation: recording-animate 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.mic-z-index {
+    z-index: 9999;
+    display: flex;
+    padding: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-row {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}

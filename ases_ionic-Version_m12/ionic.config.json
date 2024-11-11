@@ -1,0 +1,17 @@
+{
+  "name": "spinops-ionic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "/google-verify",
+      "proxyUrl": "https://play.google.com/store"
+    },
+    {
+      "path": "/apple-verify",
+      "proxyUrl": "https://itunes.apple.com"
+    }
+  ]
+}

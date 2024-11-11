@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Solicitação de via adicional</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+  <ion-grid>
+
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label color="dark">
+          <small>
+            Beneficiário, você está prestes a solicitar uma via adicional do Cartão de Identificação.
+            Esta ação poderá gerar custos de emissão.
+            Caso esteja ciente deste valor, confirme seu pedido.
+          </small>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" color="primary">Motivo da via adicional</ion-label>
+          <ion-select [formControl]="motivo">
+            <ion-select-option *ngFor="let mot of motivos" [value]="mot.nr_sequencia">
+              {{ mot.ds_motivo }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="solicitaVia()" [disabled]="!motivo.value">
+          <ion-label> Solicitar segunda via </ion-label>
+          <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+          <ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let soli of solicitacoes">
+
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <ion-label color="tertiary">Solicitação de {{ soli.dt_solicitacao | date: 'dd/MM/yyy' }}</ion-label>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ion-item lines="none">
+              <ion-label color="primary">
+                <h3>Nº Via: {{ soli.nr_via_gerada }} </h3>
+                <h3>Valor Via: R$ {{ soli.vl_via_adicional }} </h3>
+                <h3>Lote: {{ soli.nr_seq_lote }} </h3>
+                <h3>Início vigência: {{ soli.dt_inicio_vigencia | date: 'dd/MM/yyy' }} </h3>
+                <h3>Data Envio: {{ soli.dt_envio | date: 'dd/MM/yyy' }} </h3>
+                <h3>Status: {{ soli.ds_status }} </h3>
+                <h3>Validade: {{ soli.dt_validade_carteira | date: 'dd/MM/yyy' }} </h3>
+              </ion-label>
+            </ion-item>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

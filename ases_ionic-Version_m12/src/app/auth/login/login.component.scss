@@ -1,0 +1,38 @@
+mat-form-field {
+  width: 100%;
+  background-color: #0a6d91;
+}
+
+img {
+  width: 80%;
+  height: 80%;
+  max-width: 480px;
+  max-height: 320px;
+}
+
+small {
+  color: #0a6d91;
+}
+
+.card {
+  background-color: #4ec5cd;
+  width: auto;
+}
+
+.alignme {
+  float:right !important;
+}
+
+.alinhar-final{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.retiraMargemVertical{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.linhaMostrarSenha{
+  margin-top: 5px;
+}

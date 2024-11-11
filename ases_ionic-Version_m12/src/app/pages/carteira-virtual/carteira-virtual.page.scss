@@ -1,0 +1,109 @@
+.rotate-90-lb-nome {
+  display: flex;
+  transform: rotate(90deg);
+  transform-origin: 100% 0;
+  color: white;
+  position: absolute;
+  margin-left: -360px;
+  margin-top: 610px;
+  width: 600px;
+  height: 600px;
+}
+
+.rotate-90-nome {
+  display: flex;
+  transform: rotate(90deg);
+  transform-origin: 100% 0;
+  color: white;
+  position: absolute;
+  margin-left: -380px;
+  margin-top: 610px;
+  width: 600px;
+  height: 600px;
+}
+
+.rotate-90-lb-dt-nasc {
+  display: flex;
+  transform: rotate(90deg);
+  transform-origin: 100% 0;
+  color: white;
+  position: absolute;
+  margin-left: -360px;
+  margin-top: 960px;
+  width: 600px;
+  height: 600px;
+}
+
+.rotate-90-dt-nasc {
+  display: flex;
+  transform: rotate(90deg);
+  transform-origin: 100% 0;
+  color: white;
+  position: absolute;
+  margin-left: -380px;
+  margin-top: 960px;
+  width: 600px;
+  height: 600px;
+}
+
+.forgot-password {
+  color: #39878f;
+}
+
+ion-item {
+  --background: rgb(228, 228, 228);
+
+  ion-input {
+    --color: rgb(0, 0, 0);
+  }
+}
+
+.logo-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-login100 {
+  width: 100%;
+  min-height: 95vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: top;
+  align-items: top;
+  padding: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  position: relative;
+  z-index: 1;
+}
+
+.container-login100::before {
+  content: "";
+  display: flex;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url("/assets/carteirinha.png");
+  background-size: 100% 92%;
+  background-repeat: no-repeat;
+}
+
+.wrap-login100-end {
+  width: 390px;
+  background: transparent;
+}
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}

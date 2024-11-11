@@ -1,0 +1,81 @@
+<ion-header>
+	<ion-toolbar color="secondary">
+		<ion-buttons slot="start">
+			<ion-back-button color="light"></ion-back-button>
+		</ion-buttons>
+		<ion-title color="light">Últimas autorizações</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+		
+	<ion-row>
+		<ion-col>
+			<ion-item>
+			<ion-datetime [formControl]="de" placeholder="Período de dd/mm/aaaa" pickerFormat="DD/MMMM/YYYY"
+				displayFormat="DD/MM/YYYY" max=2100
+				monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+				doneText="Ok" cancelText="Cancelar">
+			</ion-datetime>
+			<ion-icon color="primary" slot="end" name="calendar-outline"></ion-icon>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+
+	<ion-row>
+		<ion-col>
+			<ion-item>
+			<ion-datetime [formControl]="ate" placeholder="Até dd/mm/aaaa" pickerFormat="DD/MMMM/YYYY"
+				displayFormat="DD/MM/YYYY" max=2100
+				monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+				doneText="Ok" cancelText="Cancelar">
+			</ion-datetime>
+			<ion-icon color="primary" slot="end" name="calendar-outline"></ion-icon>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+
+	<ion-row>
+		<ion-col>
+		  <ion-button [disabled]="autenticando" expand="block" (click)="filtrarAutorizacao()">
+			<ion-label> Buscar </ion-label>			
+			<ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+		  </ion-button>
+		</ion-col>
+	</ion-row>
+	
+	<ion-row *ngIf="autorizacoes.length === 0">
+		<ion-col class="ion-text-center">
+			<ion-label color="primary">
+			<small>
+				Não foram encontradas autorizações.
+			</small>
+			</ion-label>
+		</ion-col>
+	</ion-row>
+
+	<ion-row>
+		<ion-col>
+			<ion-card *ngFor = "let autorizacao of autorizacoes">
+				<ion-card-content class = "card-content">
+					<h4 *ngIf = "autorizacao.dtAutorizacao" class = "margin-bottom-low title-card"><b>Data: {{autorizacao.dtAutorizacao | date: 'dd/MM/yy' }}</b></h4>
+					<h4 *ngIf = "!autorizacao.dtAutorizacao" class = "margin-bottom-low title-card"><b>Data: Ainda não foi autorizado</b></h4>
+					<h4 class = "margin-bottom-low title-card"><b>Situação: {{autorizacao.dsStatus}}</b></h4>
+					<h5><b>Guia</b></h5>
+					<p class = "margin-bottom-low">{{autorizacao.cdGuia}}</p>
+					
+					<h5><b>Nome do médico</b></h5>
+					<p class = "margin-bottom-low">{{autorizacao.nmMedico}}</p>
+
+					<h5><b>Nome do prestador</b></h5>
+					<p class = "margin-bottom-low">{{autorizacao.nmPrestador}}</p>
+
+					<h5 class = "margin-bottom-low"><b>Procedimento</b>: {{autorizacao.dsProcedimento}}</h5>
+				
+					<h5><b>Quantidade: {{autorizacao.qtSolicitada}}</b></h5>
+				</ion-card-content>
+			</ion-card>
+		</ion-col>
+	</ion-row>
+
+</ion-content>

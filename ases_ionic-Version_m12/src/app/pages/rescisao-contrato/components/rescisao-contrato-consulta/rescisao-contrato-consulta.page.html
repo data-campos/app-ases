@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Rescisão contrato consulta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+  <ion-list *ngFor="let dado of dados">
+    <ion-item>
+      <ion-label>
+        {{ dado.dsStatus }} - {{ dado.data | date: 'dd/mm/yyy'}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

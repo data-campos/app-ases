@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Detalhes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+
+  <ion-card *ngFor="let det of detalhes">
+    <ion-card-header>
+      <ion-card-title color="primary">
+        Detalhes do Demonstrativo
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          <h3>Número carteirinha: {{ det.ds_carteirinha }}</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Segurado: {{ det.nm_segurado }}</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Valor mensalidade: {{ det.vl_mensalidade | currency:'R$'}}</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Valor coparticipação: {{ det.vl_coparticipacao | currency:'R$'}}</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <h3>Valor adicional: {{ det.vl_adicionais | currency:'R$'}}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-list *ngFor="let det of detalhes">
+
+    <ion-list-header lines="full">
+      <ion-label color="primary">
+        Demonstrativo <b>{{ det.nr_sequencia }}</b>
+      </ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>
+        <h3>Número carteirinha: {{ det.ds_carteirinha }}</h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h3>Valor mensalidade: R${{ det.vl_mensalidade }}</h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h3>Valor coparticipação: {{ det.vl_coparticipacao }}</h3>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h3>Valor adicional: {{ det.vl_adicionais }}</h3>
+      </ion-label>
+    </ion-item>
+
+  </ion-list> -->
+
+</ion-content>

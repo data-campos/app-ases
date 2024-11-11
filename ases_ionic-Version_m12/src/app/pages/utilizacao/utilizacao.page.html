@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"> salve </ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Utilização</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+
+  <ion-grid>
+    <form [formGroup]="form">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-datetime formControlName="de" placeholder="Período de dd/mm/aaaa" pickerFormat="DD/MMMM/YYYY"
+              displayFormat="DD/MM/YYYY" max=2100
+              monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+              doneText="Ok" cancelText="Cancelar">
+            </ion-datetime>
+            <ion-icon color="primary" slot="end" name="calendar-outline"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-datetime formControlName="ate" placeholder="Até dd/mm/aaaa" pickerFormat="DD/MMMM/YYYY"
+              displayFormat="DD/MM/YYYY" max=2100
+              monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+              doneText="Ok" cancelText="Cancelar">
+            </ion-datetime>
+            <ion-icon color="primary" slot="end" name="calendar-outline"></ion-icon>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" expand="block" (click)="procurar()">
+          <ion-icon name="search"></ion-icon>
+          <ion-spinner name="lines" *ngIf="flFilter"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <mat-accordion *ngFor="let row of filteredRows | async; let i = index">
+    <mat-expansion-panel expanded="true">
+
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ row.dsAgrupamentoLista }}
+        </mat-panel-title>
+
+        <mat-panel-description>
+          <ion-label color="primary" currencyMask> Total: R$ {{ row.vlTotal | currency:'R$' }} - Qtde:
+            {{ row.qtTotal | currency:' ' }} </ion-label>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ion-item>
+        <ion-input [formControl]="ds_prest" placeholder="Prestador"></ion-input>
+
+        <ion-buttons slot="end">
+          <ion-button size="small" (click)="filter(i)" [disabled]="ds_prest.value === ''">
+            <ion-label color="primary">Filtrar</ion-label>
+            <ion-icon name="search" color="primary"></ion-icon>
+          </ion-button>
+          <ion-button size="small" (click)="atualizaItens()">
+            <ion-icon name="close-outline" color="danger"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+      <div *ngFor="let item of filteredRows.value[i].lista">
+        <ion-item class="ion-padding-top">
+          <ion-label color="primary">
+            <h3> {{ item.dt_proc | date: 'dd/MM/yyy' }} </h3>
+            <h3> {{ item.ds_proc }} </h3>
+            <h3> {{ item.ds_cpf_cnpj_prest }} </h3>
+            <h3> {{ item.ds_municipio }} </h3>
+            <h3> {{ item.ds_prest }} </h3>
+          </ion-label>
+        </ion-item>
+      </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</ion-content>

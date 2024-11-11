@@ -1,0 +1,24 @@
+.slide {
+    width: 18em;
+    height: 18em;
+}
+
+.label-botoes{
+    padding-left: 2px;
+    font-size: 10.5px;
+    @media screen and (max-width: 340px) {
+        font-size: 8px;        
+    }
+}
+
+ion-grid[title]{
+    ion-icon{
+        font-size: 14px;
+    }
+}
+
+.div-botao-sair{
+    display: flex;
+    align-items: center;
+    margin-right: 6px;
+}

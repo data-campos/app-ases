@@ -1,0 +1,86 @@
+<ion-header>
+	<ion-toolbar color="secondary">
+		<ion-buttons slot="start">
+			<ion-back-button color="light"></ion-back-button>
+		</ion-buttons>
+		<ion-title color="light">Carteira virtual</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="limiter" color="medium">
+	<ion-grid *ngIf="beneficiarios.length > 1">
+
+		<ion-row>
+			<ion-col>
+				<ion-item>
+					<ion-label position="floating" color="primary">Beneficiario(s)</ion-label>
+					<ion-select interface="action-sheet" [formControl]="beneficiario"
+						(ionChange)="selectBeneficiario($event)">
+						<ion-select-option *ngFor="let bene of beneficiarios" [value]="bene.dsLogin">
+							{{ bene.nomeUsuario }}
+						</ion-select-option>
+					</ion-select>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+	<ion-card>
+
+		<ion-card-content>
+
+			<div class="container-login100">
+				<div class="wrap-login100">
+
+					<ion-row class="rotate-90-lb-nome">
+						<p text-wrap style="font-size: 12px; line-height: 50px">
+							Nome
+							<br>
+							Número do beneficiário
+							<br>
+							Validade
+							<br>
+							Segmentação
+						</p>
+					</ion-row>
+
+					<ion-row class="rotate-90-nome">
+						<p text-wrap style="font-size: 16px; font-weight: bold; line-height: 50px">
+							{{ carteira.nm_pessoa_fisica }}
+							<br>
+							{{ carteira.nr_carteirinha }}
+							<br>
+							{{ carteira.dt_validade_carteira }}							
+							<br>
+							{{ carteira.nm_segmentacao }}
+						</p>
+					</ion-row>
+
+					<ion-row class="rotate-90-lb-dt-nasc">
+						<p text-wrap style="font-size: 12px; line-height: 50px">
+							Nascimento
+							<br>
+							Plano
+							<br>
+							Inclusão
+						</p>
+					</ion-row>
+
+					<ion-row class="rotate-90-dt-nasc">
+						<p text-wrap style="font-size: 16px; font-weight: bold; line-height: 50px">
+							{{ carteira.dt_nascimento }}
+							<br>
+							{{ carteira.ds_plano }}
+							<br>
+							{{ carteira.dt_adesao }}
+						</p>
+					</ion-row>
+
+
+				</div>
+			</div>
+
+		</ion-card-content>
+
+	</ion-card>
+</ion-content>

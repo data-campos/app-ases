@@ -1,0 +1,1 @@
+export * from '../components/consulta-solicitacao/consulta-solicitacao.page';

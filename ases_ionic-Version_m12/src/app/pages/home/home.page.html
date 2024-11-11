@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title color="light">Dados do Beneficiário</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+
+  <ion-item lines>
+    <ion-avatar slot="start">
+      <ng-container *ngIf="ds_imagem_avatar === 'data:image/jpeg;base64,null'; else elseTemplate">
+        <ion-img [src]="defaultPhoto"> </ion-img>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ion-img [src]="ds_imagem_avatar"> </ion-img>
+      </ng-template>
+    </ion-avatar>
+    <ion-label class="ion-padding-horizontal" color="primary">
+      <h2> {{ dados.nm_pessoa_fisica }} </h2>
+      <h3> Carteirinha: {{ dados.nr_carteirinha }} </h3>
+      <h2> E-mail: {{ dados.ds_email }} </h2>
+      <p> Produto: {{ dados.nm_produto }} </p>
+    </ion-label>
+  </ion-item>
+
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label>
+        <h4>Data nascimento</h4>
+        {{ form.get('dt_nascimento').value | date: 'dd/MM/yyy' }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Contrato</h4>
+        {{ form.get('nr_contrato').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Controle interno</h4>
+        {{ form.get('nr_controle_interno').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Estipulante</h4>
+        {{ form.get('ds_estipulante').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Registro operadora ANS</h4>
+        {{ form.get('nr_ans').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Nº carteirinha SUS</h4>
+        {{ form.get('nr_cartao_nac_sus').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Validade carteira</h4>
+        {{ form.get('dt_validade_carteira').value | date: 'dd/MM/yyy' }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Data contratação</h4>
+        {{ form.get('dt_contratacao').value | date: 'dd/MM/yyy' }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Data inclusão</h4>
+        {{ form.get('dt_inclusao_operadora').value | date: 'dd/MM/yyy' }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Pagador</h4>
+        {{ form.get('nm_pagador').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Plano</h4>
+        {{ form.get('ds_plano').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Nº cadastro plano ANS</h4>
+        {{ form.get('nr_ans_plano').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Segmentação assistencial</h4>
+        {{ form.get('ds_sit_plano').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Regulamentação</h4>
+        {{ form.get('nm_regulamentacao').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Código anterior</h4>
+        {{ form.get('ds_codigo_anterior').value }}
+      </ion-label>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>
+        <h4>Tipo contratação</h4>
+        {{ form.get('nm_tipo_contratacao').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Padrão de acomodação</h4>
+        {{ form.get('nm_tipo_acomodacao').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Formação de preço</h4>
+        {{ form.get('nm_formacao_preco').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Nº cadastro SCPA</h4>
+        {{ form.get('cd_scpa').value }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>Abrangência geográfica</h4>
+        {{ form.get('ds_abrangencia').value }}
+      </ion-label>
+    </ion-item>
+  </form>
+
+</ion-content>

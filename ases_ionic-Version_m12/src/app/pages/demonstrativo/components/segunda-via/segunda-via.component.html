@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title color="light">Segunda via</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+  <ion-grid>
+
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label color="primary">
+          <small>
+            <b> Código do boleto </b>
+          </small>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-input [value]="boleto" disabled="true" color="primary"></ion-input>
+        <ion-button expand="block" size="small" color="secondary" (click)="clipboard.copy(boleto)">
+          <ion-label>Copiar código</ion-label>
+          <ion-icon name="copy-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="form">
+          <ion-item>
+            <ion-label position="floating" color="primary">Data de vencimento</ion-label>
+            <ion-datetime formControlName="dt_vencimento" pickerFormat="DD/MMMM/YYYY" displayFormat="DD/MMMM/YYYY"
+              max=2100
+              monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+              doneText="Ok" cancelText="Cancelar" (ionChange)="despesas($event)">
+            </ion-datetime>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label position="floating" color="primary">Juros</ion-label>
+            <ion-input formControlName="juros"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label position="floating" color="primary">Multa</ion-label>
+            <ion-input formControlName="multa"></ion-input>
+          </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-padding-top">
+      <ion-fab-button [disabled] = "autenticando" style="margin-left: auto; margin-right: auto;" color="secondary" (click)="downloadPDF()">
+        <ion-icon *ngIf="!autenticando" name="print-outline"></ion-icon>
+        <ion-spinner name="crescent" *ngIf="autenticando"></ion-spinner>
+      </ion-fab-button>
+    </ion-row>
+
+    <ion-row>
+      <ion-label style="margin-left: auto; margin-right: auto; margin-top: 8px;" color="primary"><b>Imprimir</b>
+      </ion-label>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

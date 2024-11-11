@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title color="light"> Alterar senha </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="light" (click)="close()">
+        <ion-icon slot="start" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+  <ion-grid>
+
+    <form [formGroup]="form">
+      <ion-card class="card">
+        <ion-card-content>
+
+          <ion-label color="light" class="ion-text-center">
+            <h5> Preencha os dados </h5>
+          </ion-label>
+
+          <ion-row class="ion-padding-top">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label position="floating" color="primary">Senha atual</ion-label>
+                <ion-input type="password" placeholder="Digite sua senha atual" formControlName="dsSenhaAtual"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-top">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label position="floating" color="primary">Nova senha</ion-label>
+                <ion-input type="password" placeholder="Digite sua nova senha" formControlName="dsSenhaNova"></ion-input>
+              </ion-item>
+              <ion-label 
+                style="font-weight: bold;" 
+                color="danger" 
+                *ngIf="getError('dsSenhaNova')"
+              >
+                Sua senha deve conter 8 dígitos.
+              </ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="ion-padding-top">
+            <ion-col>
+              <ion-item lines="none">
+                <ion-label position="floating" color="primary">Confirme sua senha</ion-label>
+                <ion-input type="password" placeholder="Confirme sua nova senha" formControlName="dsSenhaConfirmacao">
+                </ion-input>
+              </ion-item>
+              <ion-label 
+                style="font-weight: bold;" 
+                color="danger" 
+                *ngIf="getError('dsSenhaConfirmacao')"
+              >
+                Sua senha deve conter 8 dígitos.
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </form>
+
+    <ion-row>
+      <ion-col>
+        <ion-button 
+          expand="block" 
+          (click)="alterarSenha()"
+          [disabled]="autenticando || form.invalid || form.get('dsSenhaNova').value !== form.get('dsSenhaConfirmacao').value"
+        >
+          <ion-label> Alterar Senha </ion-label>
+          <ion-icon name="key-outline" slot="start"></ion-icon>
+          <ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

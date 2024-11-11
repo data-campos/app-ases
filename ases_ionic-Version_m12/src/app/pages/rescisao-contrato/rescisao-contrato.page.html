@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title color="light">Rescisão do Contrato</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+  <ion-toolbar>
+    <ion-title color="primary">
+      Termo de rescisão de contrato
+      <ion-icon slot="end" color="primary" name="person-circle-outline"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-label color="dark">
+          A cobrança dos valores devidos a título de coparticipação de procedimentos antes da data de procedimentos
+          realizados antes da data de exclusão ou os atendimentos executados após a exclusão dos beneficiários será
+          realizada a partir do conhecimento da operadora, ou seja, quando forem cobrados pelo serviço dentro do prazo
+          de até 3(três) anos.
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label color="dark">
+          Informamos que ainda que a não quitação de futuros débitos acarretará no envio de seus dados para o Banco de
+          Dados restritivo de crédito(Serviço de Proteção ao Crédito - SPC).
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label color="dark">
+          Qualquer dúvida favor enrar em contato no telefone 0800 4482500 ou pelo e-mail sac@unimedbrusque.com.br
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label color="dark">
+          Atensiosamente
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-label color="dark">
+          Unimed Brusque - Cooperativa de Trabalho Médico
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label color="primary">Eu li e concordo com os termos apresentados.</ion-label>
+          <ion-checkbox color="primary" slot="end" [formControl]="fl_li"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="solicitaRescisao()" [disabled]="!fl_li.value">
+          <ion-label> Solicitar rescisão </ion-label>
+          <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+          <ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="consultaRescisao()">
+          <ion-label> Consulta rescisão </ion-label>
+          <ion-icon name="eye-outline" slot="start"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

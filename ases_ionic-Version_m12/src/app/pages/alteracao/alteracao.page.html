@@ -1,0 +1,169 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="light">Alterações Cadastrais</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium" class="ion-padding">
+
+  <ion-grid>
+    <form [formGroup]="form">
+
+      <ion-toolbar>
+        <ion-title color="primary">
+          Dados pessoais
+          <ion-icon slot="end" color="primary" name="person-circle-outline"></ion-icon>
+        </ion-title>
+      </ion-toolbar>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Nome</ion-label>
+        <ion-input formControlName="nm_pessoa_fisica"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Data de nascimento</ion-label>
+        <ion-datetime formControlName="dt_nascimento" pickerFormat="DD/MMMM/YYYY" displayFormat="DD/MM/YYYY" max=2100
+          monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+          doneText="Ok" cancelText="Cancelar">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Identidade</ion-label>
+        <ion-input formControlName="nr_identidade" type="text" [brmasker]="{mask:'0.000.000', len:10}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">CPF</ion-label>
+        <ion-input formControlName="nr_cpf" type="text" [brmasker]="{form: form.get('nr_cpf'), person: true}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Nº carteira SUS</ion-label>
+        <ion-input formControlName="nr_cartao_nac_sus" type="number"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Estado civil</ion-label>
+        <ion-select formControlName="ie_estado_civil">
+          <ion-select-option *ngFor="let est of estadoCivil" [value]="est.ie">{{ est.ds }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Gênero</ion-label>
+        <ion-select formControlName="ie_sexo">
+          <ion-select-option [value]="sex.sg" *ngFor="let sex of sexo">
+            {{ sex.ds }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Mãe</ion-label>
+        <ion-input formControlName="nm_mae"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Pai</ion-label>
+        <ion-input formControlName="nm_pai"></ion-input>
+      </ion-item>
+
+      <ion-toolbar class="ion-padding-top">
+        <ion-title color="primary">Contato</ion-title>
+      </ion-toolbar>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Telefone</ion-label>
+        <ion-input formControlName="nr_telefone"
+          [brmasker]="{form: form.get('nr_telefone'), mask:'0000-0000', type:'num'}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Celular</ion-label>
+        <ion-input formControlName="nr_telefone_celular"
+          [brmasker]="{form: form.get('nr_telefone_celular'), mask:'00000-0000', type:'num'}">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Email</ion-label>
+        <ion-input formControlName="ds_email"></ion-input>
+      </ion-item>
+
+      <ion-toolbar class="ion-padding-top">
+        <ion-title color="primary">Endereço</ion-title>
+      </ion-toolbar>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">CEP</ion-label>
+        <ion-input formControlName="cd_cep" [brmasker]="{mask:'00.000-000', len:10}"></ion-input>
+        <ion-button (click)="pesquisaCEP()" expand="block" size="small">
+          <ion-label> Buscar </ion-label>
+        </ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Rua</ion-label>
+        <ion-input formControlName="ds_endereco"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Número</ion-label>
+        <ion-input formControlName="nr_endereco"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Bairro</ion-label>
+        <ion-input formControlName="ds_bairro"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="cidades.length > 0">
+        <ion-label position="floating" color="secondary">Cidade</ion-label>
+        <ion-select formControlName="ds_cidade">
+          <ion-select-option [value]="cidade" *ngFor="let cidade of cidades">
+            {{ cidade }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating" color="secondary">Estado</ion-label>
+        <ion-select (ionChange)="getCidadesFromEstado($event)" formControlName="sg_estado">
+          <ion-select-option [value]="estado.sigla" *ngFor="let estado of estados">
+            {{ estado.nome }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </form>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="solicitaAlteracao()" [disabled]="form.invalid || form.pristine">
+          <ion-label> Solicitar alteração </ion-label>
+          <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+          <ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="consultaSolicitacao()">
+          <ion-label> Consulta alteração </ion-label>
+          <ion-icon name="eye-outline" slot="start"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

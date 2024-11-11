@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title color="light">Início</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+  <ion-grid>
+
+    <ion-row>
+      <ion-col>
+        <ion-slides pager="true">
+
+          <ion-slide *ngFor="let banner of listaBanner">
+            <img class="slide" [src]="'data:image/jpeg;base64,' + banner" />
+          </ion-slide>
+
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="inset">
+          <ng-container *ngIf="ds_imagem_avatar === 'data:image/jpeg;base64,null'; else elseTemplate">
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <ion-avatar slot="start">
+              <img [src]="ds_imagem_avatar">
+            </ion-avatar>
+          </ng-template>
+          <ion-label color="primary">
+            <h3><b>{{ user.user }}</b></h3>
+            <h4> Carteirinha: {{ user.carteirinha }}</h4>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item lines="inset" (click)="comunicados(possuiComunicado)">
+          <ion-badge slot="start" color="primary">{{ qtComunicado }}</ion-badge>
+          <ion-label color="primary" *ngIf="possuiComunicado.value">
+            <h3><b>Comunicados</b></h3>
+            <h4>Você possui novos comunicados.</h4>
+          </ion-label>
+          <ion-label color="primary" *ngIf="!possuiComunicado.value">
+            <h3><b>Comunicados</b></h3>
+            <h4>Você não possui novos comunicados.</h4>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item color="primary" [routerLink]="['/guia-medico']">
+          <ion-icon name="location-outline" slot="start"></ion-icon>
+          <ion-label color="light">
+            <h2><b>Guia médico</b></h2>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-item color="primary" [routerLink]="['/carteira-virtual']">
+          <ion-icon name="clipboard-outline" slot="start"></ion-icon>
+          <ion-label color="light">
+            <h2><b>Carteira virtual</b></h2>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-text-center ion-padding-top">
+        <ion-label color="primary">
+          <b> Outras opções </b>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-grid title="botoes-outras-opcoes">
+      <ion-row>
+        <ng-container *ngFor="let item of menuList | async">
+          <ion-col size="6">
+            <ion-item color="primary" (click)="menuClick(item)">
+              <ion-icon style="margin-right: 2px!important" [name]="item.icon" slot="start"></ion-icon>
+              <ion-label class="label-botoes" color="light">
+                <b>{{item.label}}</b>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </ion-grid>
+</ion-content>

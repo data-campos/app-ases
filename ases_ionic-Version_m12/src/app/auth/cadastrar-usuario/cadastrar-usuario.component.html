@@ -1,0 +1,185 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title color="light">Cadastrar Usuário</ion-title>
+		<ion-buttons slot="end">
+			<ion-button color="light" (click)="close()">
+				<ion-icon slot="start" name="close"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+	<ion-grid>
+		<form [formGroup]="form">
+			<ion-card class="card">
+				<ion-card-content>
+
+					<ion-label color="light" class="ion-text-center">
+						<h5> Favor preencher todo o formulário </h5>
+					</ion-label>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label position="floating" color="secondary">Número carteira</ion-label>
+								<ion-input
+									type="text"
+									placeholder="Número da carteirinha"
+									formControlName="nrCarteirinha"
+									[brmasker]="{form: form.get('nrCarteirinha')}"
+								></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label position="floating" color="secondary">Email</ion-label>
+								<ion-input
+									type="email"
+									formControlName="dsEmail"
+									placeholder="Digite seu email"
+								></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label position="floating" color="secondary">
+									Confirmar e-mail
+								</ion-label>
+								<ion-input
+									onpaste="return false;"
+									type="text"
+								  placeholder="Confirme seu e-mail seu email"
+								  formControlName="dsEmailConfirmacao"
+								></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ng-container>
+						<ion-row
+							*ngIf="!this.matchFields('dsEmail', 'dsEmailConfirmacao') && this.form.get('dsEmailConfirmacao').dirty">
+							<ion-col>
+								<div class="password-condition">
+									<div>
+										<small Style="color: orange">Os e-mails não conferem!</small>
+									</div>
+								</div>
+							</ion-col>
+						</ion-row>
+					</ng-container>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label position="floating" color="secondary">Data de nascimento</ion-label>
+								<ion-datetime
+									max=2100
+								  doneText="Ok"
+									cancelText="Cancelar"
+									placeholder="dd/mm/yyyy"
+									displayFormat="DD/MM/YYYY"
+									pickerFormat="DD/MMMM/YYYY"
+									formControlName="dtNascimento"
+									monthNames='Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro'
+								></ion-datetime>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label position="floating" color="secondary">CPF</ion-label>
+								<ion-input
+									type="text"
+									formControlName="nrCpf"
+									placeholder="Digite seu CPF"
+									[brmasker]="{form: form.get('nrCpf'), person: true}"
+								>
+								</ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label position="floating" color="secondary">Senha</ion-label>
+								<ion-input
+									type="password"
+									id="input-senha"
+									enterkeyhint="send"
+									clearOnEdit="false"
+									formControlName="dsSenha"
+									[placeholder]="'Digite sua senha'"
+									(ionInput)="checkIfPasswordFulfillConditions($event)"
+								></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ion-row *ngIf="this.form.get('dsSenha').dirty">
+						<ion-col>
+							<div class="password-condition">
+								<div *ngFor="let item of passwordCondition">
+									<small [ngStyle]="{'color': item.color}">
+										{{item.message}}
+									</small>
+								</div>
+							</div>
+						</ion-col>
+					</ion-row>
+
+					<ion-row class="ion-padding-top">
+						<ion-col>
+							<ion-item>
+								<ion-label class="ion-text-wrap" position="floating" color="secondary">
+									Confirme sua senha
+								</ion-label>
+								<ion-input
+									type="password"
+									clearOnEdit="false"
+									onpaste="return false;"
+									formControlName="dsSenhaConfirmacao"
+									[placeholder]="'Confirme sua senha'"
+									[brmasker]="{form: form.get('dsSenhaConfirmacao')}"
+								></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+					<ng-container>
+						<ion-row *ngIf="!matchFields('dsSenha', 'dsSenhaConfirmacao') && this.form.get('dsSenha').dirty">
+							<ion-col>
+								<div class="password-condition">
+									<div>
+										<small Style="color: orange">As senhas não conferem!</small>
+									</div>
+								</div>
+							</ion-col>
+						</ion-row>
+					</ng-container>
+				</ion-card-content>
+			</ion-card>
+		</form>
+
+		<ion-row>
+			<ion-col>
+				<ion-button expand="block" (click)="handleSubmit()"
+				            [disabled]="form.invalid || autenticando">
+					<ion-label> Finalizar cadastro</ion-label>
+					<ion-icon name="key-outline" slot="start"></ion-icon>
+					<ion-spinner name="lines" *ngIf="autenticando"></ion-spinner>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+</ion-content>
